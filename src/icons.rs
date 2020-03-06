@@ -56,7 +56,8 @@ lazy_static! {
         "keyboard" => " KBD",
         "mouse" => " MOUSE",
         "docker" => " DOCKER ",
-        "pomodoro" => " POMODORO "
+        "pomodoro" => " POMODORO ",
+        "disk" => " DISK "
     };
 
     pub static ref AWESOME: Map<String, String> = map_to_owned! {
@@ -115,7 +116,8 @@ lazy_static! {
         "keyboard" => " \u{f11c}",
         "mouse" => " \u{f245}",
         "docker" => " \u{f21a} ",
-        "pomodoro" => " \u{1f345} "
+        "pomodoro" => " \u{1f345} ",
+        "disk" => " \u{f0a0} "
     };
 
     pub static ref MATERIAL: Map<String, String> = map_to_owned! {
@@ -156,7 +158,8 @@ lazy_static! {
         "keyboard" => " \u{e312}",
         "mouse" => " \u{e323}",
         "docker" => " \u{e532} ",
-        "pomodoro" => " \u{1f345} "
+        "pomodoro" => " \u{1f345} ",
+        "disk" => " \u{e1db} "
     };
 }
 

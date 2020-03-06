@@ -62,6 +62,7 @@ pub struct DiskSpace {
     alert: f64,
     show_percentage: bool,
     show_bar: bool,
+    show_number: bool,
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -102,9 +103,13 @@ pub struct DiskSpaceConfig {
     #[serde(default = "DiskSpaceConfig::default_show_percentage")]
     pub show_percentage: bool,
 
-    /// Show percentage
+    /// Show percentage as progress bar
     #[serde(default = "DiskSpaceConfig::default_show_bar")]
     pub show_bar: bool,
+
+    /// Show show actual number for space
+    #[serde(default = "DiskSpaceConfig::default_show_number")]
+    pub show_number: bool,
 }
 
 impl DiskSpaceConfig {
@@ -142,6 +147,10 @@ impl DiskSpaceConfig {
 
     fn default_show_bar() -> bool {
         false
+    }
+
+    fn default_show_number() -> bool {
+        true
     }
 }
 
@@ -190,7 +199,7 @@ impl ConfigBlock for DiskSpace {
         Ok(DiskSpace {
             id: Uuid::new_v4().to_simple().to_string(),
             update_interval: block_config.interval,
-            disk_space: TextWidget::new(config).with_text("DiskSpace"),
+            disk_space: TextWidget::new(config).with_icon("disk"),
             alias: block_config.alias,
             path: block_config.path,
             info_type: block_config.info_type,
@@ -199,6 +208,7 @@ impl ConfigBlock for DiskSpace {
             alert: block_config.alert,
             show_percentage: block_config.show_percentage,
             show_bar: block_config.show_bar,
+            show_number: block_config.show_number,
         })
     }
 }
@@ -252,10 +262,8 @@ impl Block for DiskSpace {
             ));
         } else if self.show_bar {
             self.disk_space.set_text(format!(
-                "{0} {1} {2:?} {3}",
+                "{0} {1}",
                 self.alias,
-                converted_str,
-                self.unit,
                 format_percent_bar(percentage)
             ));
         } else {
